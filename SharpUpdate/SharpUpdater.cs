@@ -63,7 +63,7 @@ namespace SharpUpdate
         /// Uri of the update xml on the server
         /// </summary>
         private Uri UpdateXmlLocation;
-        //private readonly Uri UpdateXmlLocation = new Uri("https://raw.githubusercontent.com/henryxrl/SharpUpdate/master/project.xml");
+        //private readonly Uri UpdateXmlLocation = new Uri("https://raw.githubusercontent.com/wslkh/SharpUpdate/master/project.xml");
         //private readonly Uri UpdateXmlLocation = new Uri(new FileInfo(@"..\..\..\project.xml").FullName);       // for local testing
 
         /// <summary>

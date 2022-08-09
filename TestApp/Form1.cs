@@ -15,7 +15,7 @@ namespace TestApp
 
             label1.Text = ProductName + "\n" + ProductVersion;
 
-            updater = new SharpUpdater(Assembly.GetExecutingAssembly(), this, new Uri("https://raw.githubusercontent.com/henryxrl/SharpUpdate/master/project.xml"));
+            updater = new SharpUpdater(Assembly.GetExecutingAssembly(), this, new Uri("https://raw.githubusercontent.com/wslkh/SharpUpdate/master/project.xml"));
             
             //Assembly:TestApp, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null
             //Console.WriteLine("Assembly:" + Assembly.GetExecutingAssembly());
