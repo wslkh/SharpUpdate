@@ -91,7 +91,7 @@ namespace SharpUpdate
                             | SecurityProtocolType.Tls11
                             | SecurityProtocolType.Tls12;
 
-                    // Request the update.xml
+                    // Request the project.xml
                     HttpWebRequest req = (HttpWebRequest)WebRequest.Create(location.AbsoluteUri);
                     // Read for response
                     HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
