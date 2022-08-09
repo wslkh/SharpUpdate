@@ -85,6 +85,12 @@ namespace SharpUpdate
             {
                 try
                 {
+                    //lkh 解决运行错误: 请求被中止: 未能创建 SSL/TLS 安全通道
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 
+                            | SecurityProtocolType.Tls 
+                            | SecurityProtocolType.Tls11
+                            | SecurityProtocolType.Tls12;
+
                     // Request the update.xml
                     HttpWebRequest req = (HttpWebRequest)WebRequest.Create(location.AbsoluteUri);
                     // Read for response
@@ -93,7 +99,11 @@ namespace SharpUpdate
 
                     return resp.StatusCode == HttpStatusCode.OK;
                 }
-                catch { return false; }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"ExistsOnServer exception: {ex.Message}");
+                    return false; 
+                }
             }
         }
 

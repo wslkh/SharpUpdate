@@ -160,10 +160,13 @@ namespace SharpUpdate
                         showMsgBox = false;
 
                         // Ask to accept the update
-                        if (new SharpUpdateAcceptForm(LocalApplicationInfos[i], JobsFromXML[i], count, validJobs.Count).ShowDialog(LocalApplicationInfos[0].Context) == DialogResult.Yes)
+                        var form = new SharpUpdateAcceptForm(LocalApplicationInfos[i], JobsFromXML[i], count, validJobs.Count);
+                        if (form.ShowDialog(LocalApplicationInfos[0].Context) == DialogResult.Yes)
                         {
                             acceptJobs++;
-                            DownloadUpdate(JobsFromXML[i], LocalApplicationInfos[i]); // Do the update
+                            bool result = DownloadUpdate(JobsFromXML[i], LocalApplicationInfos[i]); // Do the update
+                            if (result == false) //某一文件下载失败
+                                return;
                         }
                     }
 
@@ -189,8 +192,10 @@ namespace SharpUpdate
         /// </summary>
         /// <param name="update">The update xml info</param>
         /// <param name="applicationInfo">An SharpUpdateInfo object containing application's info</param>
-        private void DownloadUpdate(SharpUpdateXml update, SharpUpdateLocalAppInfo applicationInfo)
+        private bool DownloadUpdate(SharpUpdateXml update, SharpUpdateLocalAppInfo applicationInfo)
         {
+            Console.WriteLine("DownloadUpdate:" + update.Uri);
+
             if (update.Tag == JobType.REMOVE)
             {
                 tempFilePaths.Add("");
@@ -198,7 +203,7 @@ namespace SharpUpdate
                 newPaths.Add(Path.GetFullPath(applicationInfo.ApplicationPath));
                 launchArgss.Add(update.LaunchArgs);
                 jobtypes.Add(update.Tag);
-                return;
+                return true;
             }
 
             SharpUpdateDownloadForm form = new SharpUpdateDownloadForm(update.Uri, update.MD5, applicationInfo.ApplicationIcon);
@@ -215,14 +220,17 @@ namespace SharpUpdate
                 newPaths.Add(newPath);
                 launchArgss.Add(update.LaunchArgs);
                 jobtypes.Add(update.Tag);
+                return true;
             }
             else if (result == DialogResult.Abort)
             {
                 MessageBoxEx.Show(ParentForm, "The update download was cancelled.\nThis program has not been modified.", "Update Download Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
             }
             else
             {
                 MessageBoxEx.Show(ParentForm, "There was a problem downloading the update.\nPlease try again later.", "Update Download Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
             }
         }
 

@@ -151,8 +151,12 @@ namespace SharpUpdate
             string updateMD5 = ((string[])e.Argument)[1];
 
             // Hash the file and compare to the hash in the update xml
-            if (Hasher.HashFile(file, HashType.MD5).ToUpper() != updateMD5.ToUpper())
+            var md5 = Hasher.HashFile(file, HashType.MD5).ToUpper();
+            if (md5 != updateMD5.ToUpper())
+            {
                 e.Result = DialogResult.No;
+                Console.WriteLine($"bgWorker_DoWork: MD5 mismatch, expect {updateMD5}, got {md5}");
+            }
             else
                 e.Result = DialogResult.OK;
         }
