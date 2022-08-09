@@ -18,4 +18,19 @@
         1. Support for multiple files updating.</description> 
         <launchArgs></launchArgs> 
     </update>
+    <add> 
+        <version>3.0.0.0</version> 
+        <url>https://raw.githubusercontent.com/wslkh/SharpUpdate/master/TestApp/bin/Debug/SharpUpdate.dll</url> 
+        <filePath>./test_add/SharpUpdate_test_add.dll</filePath>
+        <md5>A61FFE460400AD79D73E94E77BCC0B89</md5>
+        <description>Add: 10/06/2018:
+        1. Test add.</description> 
+        <launchArgs></launchArgs> 
+    </add>
+    <remove>
+        <filePath>./test_remove/SharpUpdate_copy.dll</filePath>
+        <description>Remove: 10/06/2018:
+        1. Test remove.</description> 
+        <launchArgs></launchArgs> 
+    </remove>
 </sharpUpdate>
